@@ -1,59 +1,59 @@
-// import { StatusBar } from 'expo-status-bar';
-// import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Im Cindy, super coder</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-
 import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MoviesScreen from './src/components/MoviesScreen';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import MoviesScreen from './src/components/moviesScreen';
 import SearchScreen from './src/components/searchScreen';
 import TVShowsScreen from './src/components/tvShowsScreen';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Movies" component={MoviesScreen} />
-        <Tab.Screen name="SearchResults" component={SearchScreen} />
-        <Tab.Screen name="TVShows" component={TVShowsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#495057' }}>
+          <View style={styles.movieTitleContainer}>
+            <Text style={styles.movieTitle}>Movie App</Text>
+          </View>
+
+          <Tab.Navigator
+            tabBarOptions={{
+              labelStyle: { fontSize: 16, textTransform: 'none' }, 
+              tabStyle: { flex: 1, justifyContent: 'center' }, 
+              style: { backgroundColor: '#fff', elevation: 0 }, 
+              indicatorStyle: { backgroundColor: '#495057', height:3 }, 
+            }}
+            screenOptions={({ route }) => ({
+              headerTitle: 'Movie App',
+              headerTitleAlign: 'center',
+            })}
+          >
+            <Tab.Screen name="Movies" component={MoviesScreen} />
+            <Tab.Screen name="Search" component={SearchScreen} />
+            <Tab.Screen name="TV Shows" component={TVShowsScreen} />
+          </Tab.Navigator>
+        </SafeAreaView>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
-<Tab.Screen
-  name="Movies"
-  component={MoviesScreen}
-  options={{
-    title: 'Movie App',
-    headerStyle: {
-      backgroundColor: '#f4511e', 
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  }}
-/>
+const styles = StyleSheet.create({
+  movieTitleContainer: {
+    paddingTop: 20,
+    backgroundColor: '#495057',
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  movieTitle: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
 
 export default App;
