@@ -9,7 +9,7 @@ const SearchScreen = ({ navigation }) => {
   const [searchType, setSearchType] = useState('movie');
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchTypeMessage, setShowSearchTypeMessage] = useState(false);
-  const [isDropdownVisible, setDropdownVisible] = useState(false); // Corrected variable name
+  const [isDropdownVisible, setDropdownVisible] = useState(false); 
 
   const handleSearch = async () => {
     if (query.trim() === '') {
@@ -32,14 +32,14 @@ const SearchScreen = ({ navigation }) => {
   };
 
   const navigateToDetails = (item) => {
-    navigation.navigate('MovieDetails', { movie: item });
+    navigation.navigate('MovieDetails', { item });
   };
 
   const renderDropdownItem = (item) => (
     <TouchableOpacity
       key={item.value}
       onPress={() => {
-        setSearchType(item.value); // Corrected variable name
+        setSelectedCategory(item.value);
         setDropdownVisible(false);
       }}
       style={styles.dropdownItem}
@@ -49,8 +49,9 @@ const SearchScreen = ({ navigation }) => {
   );
 
   const dropdownOptions = [
-    { label: 'Movie', value: 'movie' },
-    { label: 'TV Show', value: 'tv' },
+    { label: 'movie', value: 'movie' },
+    { label: 'multi', value: 'multi' },
+    { label: 'tv', value: 'tv' },
   ];
 
   return (
@@ -72,25 +73,35 @@ const SearchScreen = ({ navigation }) => {
 
         <View>
           <Text style={styles.formLabel}>Choose Search Type<Text style={styles.mandatory}>*</Text></Text>
-          
           <View style={styles.searchTypeContainer}>
+          <TouchableOpacity
+              onPress={() => setDropdownVisible(true)}
+              style={styles.dropdownButton}
+            >
+              <Text style={styles.dropdownButtonText}>
+                {dropdownOptions.find(option => option.value === searchType)?.label}
+              </Text>
+              <Icon
+                name="chevron-down"
+                style={styles.arrowIcon}
+              />
+            </TouchableOpacity>
+
             <Dropdown
               options={dropdownOptions}
               selectedOption={searchType}
-              onSelect={setSearchType}
+              onSelect={(value) => setSearchType(value)}
               isVisible={isDropdownVisible}
               onClose={() => setDropdownVisible(false)}
             />
 
-            <TouchableOpacity style={styles.searchButton} onPress={() => setDropdownVisible(!isDropdownVisible)}>
+            <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+              <Icon name="search" size={20} color="#fff" style={styles.searchIcon} />
               <Text style={styles.btnSearch}>Search</Text>
-              <Icon name="search" size={20} color="#fff" />
             </TouchableOpacity>
           </View>
 
-          {showSearchTypeMessage && (
-            <Text style={styles.errorMessage}>Please select a search type.</Text>
-          )}
+          <Text style={styles.message}>Please select a search type.</Text>
         </View>
 
       {/* Search Results */}
@@ -148,32 +159,63 @@ const styles = StyleSheet.create({
   searchTypeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    justifyContent: 'space-between',
   },
-  searchTypeDropdown: {
-    flex: 1,
+  dropdownButton: {
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingHorizontal: 10,
+    marginVertical: 10,
+    marginRight:10,
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    borderColor: '#dee2e6',
+    borderWidth: 1,
+    borderRadius: 5, 
+    flexDirection: 'row', 
+    flexGrow:1,
+  },
+  dropdownButtonText: {
+    fontSize: 16,
+    marginRight: 8,
+    color:"#777"
+  },
+  arrowIcon:{
+    fontSize: 16,
+    fontWeight: "regular", 
+    color:"#B9C2CB"
   },
   searchButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#00b4d8',
     borderRadius: 5,
-    padding: 10,
+    paddingTop:12,
+    paddingBottom:12,
+    paddingLeft:25,
+    paddingRight:25,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
+    flexDirection: 'row', 
+  },
+  searchIcon: {
+    marginRight: 5,
+  },
+  btnSearch:{
+    color:'white',
+    fontSize:16,
+    fontWeight:"600",
+  },
+  message:{
+    fontSize:12,
   },
   errorMessage: {
     color: 'red',
     marginBottom: 10,
   },
   noResultMessage: {
-    fontStyle: 'italic',
-    color: '#777',
+    fontSize: 25,
+    fontWeight:"700",
+    color: '#49525A',
+    textAlign:"center",
+    marginTop:100,
   },
 });
 
