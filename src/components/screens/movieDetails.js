@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Button, StyleSheet } from 'react-native';
+import { View, Text, Image, Button, StyleSheet, ScrollView } from 'react-native';
 
 const MovieDetailsScreen = ({ route, navigation }) => {
   const { movie } = route.params;
@@ -18,24 +18,28 @@ const MovieDetailsScreen = ({ route, navigation }) => {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.movieTitle}>{movie.title}</Text>
-      <Image
-        source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}` }}
-        style={styles.movieImage}
-      />
-      <Text style={styles.movieOverview}>{movie.overview}</Text>
-      <View style={styles.popularityReleaseDate}>
-        <Text style={styles.popularity}>Popularity: {movie.popularity}</Text>
-        <Text style={styles.release}>Release Date: {movie.release_date}</Text>
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.container}>
+        <Text style={styles.movieTitle}>{movie.title}</Text>
+        <Image
+          source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}` }}
+          style={styles.movieImage}
+        />
+        <Text style={styles.movieOverview}>{movie.overview}</Text>
+        <View style={styles.popularityReleaseDate}>
+          <Text style={styles.popularity}>Popularity: {movie.popularity}</Text>
+          <Text style={styles.release}>Release Date: {movie.release_date}</Text>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
+  },
+  container: {
     padding: 30,
     backgroundColor: '#F4F5F6',
     justifyContent: "center",
@@ -49,29 +53,28 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     fontSize: 25,
-    color:"#49525A",
+    color: "#49525A",
     fontWeight: 'bold',
-    marginTop:50,
+    marginTop: 20,
     marginBottom: 10,
-    textAlign:"center",
+    textAlign: "center",
   },
   movieOverview: {
-    lineHeight:"23",
-    color:"#535C65",
+    lineHeight: 23,
+    color: "#535C65",
   },
   popularityReleaseDate: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 20,
   },
   popularity: {
-    color:"#535C65",
-    marginRight:5,
+    color: "#535C65",
+    marginRight: 5,
   },
   release: {
-    color:"#535C65",
-    marginLeft:5
+    color: "#535C65",
+    marginLeft: 5
   },
-  
 });
 
 export default MovieDetailsScreen;

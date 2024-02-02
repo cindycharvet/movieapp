@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Button, TouchableOpacity, FlatList, Modal, StyleSheet } from 'react-native';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
+import Dropdown from '../dropdown';
 import { createStackNavigator } from '@react-navigation/stack';
 import MovieDetailsScreen from './movieDetails';
 
@@ -68,21 +68,18 @@ const MovieList = ({ navigation }) => {
         onPress={() => setDropdownVisible(true)}
         style={styles.dropdownButton}
       >
-        <Text style={styles.dropdownButtonText}>{dropdownOptions.find(option => option.value === selectedCategory)?.label}</Text>
+        <Text style={styles.dropdownButtonText}>
+          {dropdownOptions.find(option => option.value === selectedCategory)?.label}
+        </Text>
       </TouchableOpacity>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isDropdownVisible}
-        onRequestClose={() => setDropdownVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            {dropdownOptions.map(renderDropdownItem)}
-          </View>
-        </View>
-      </Modal>
+      <Dropdown
+        options={dropdownOptions}
+        selectedOption={selectedCategory}
+        onSelect={setSelectedCategory}
+        isVisible={isDropdownVisible}
+        onClose={() => setDropdownVisible(false)}
+      />
 
       <FlatList
         data={movies}
