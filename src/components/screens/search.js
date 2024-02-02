@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet,FlatList, TouchableOpacity, Image } from 'react-native';
 import axios from 'axios';
 import Dropdown from '../dropdown';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -26,6 +26,7 @@ const SearchScreen = ({ navigation }) => {
     try {
       const response = await axios.get(`https://api.themoviedb.org/3/search/${searchType}?api_key=6ca46762aece731e3a07568e5fb9e304&query=${query}`);
       setSearchResults(response.data.results);
+      setQuery('');
     } catch (error) {
       console.error('Error searching:', error);
     }
@@ -110,12 +111,36 @@ const SearchScreen = ({ navigation }) => {
           <Text style={styles.noResultMessage}>Please initiate search</Text>
         )}
 
-        {searchResults.map((item) => (
-          <View key={item.id} style={styles.resultItem}>
-            <Text>{item.title || item.name}</Text>
-            <Button title="More Details" onPress={() => navigateToDetails(item)} />
-          </View>
-        ))}
+        {searchResults.length > 0 && (
+          <FlatList
+            data={searchResults}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => navigateToDetails(item)}>
+                <View style={styles.movieContainer}>
+                  {/* Adjust the image source based on your API response */}
+                  <Image
+                    source={{ uri: `https://image.tmdb.org/t/p/w200${item.poster_path}` }}
+                    style={styles.movieImage}
+                  />
+                  <View style={styles.movieDetails}>
+                    <Text style={styles.movieTitle}>{item.title || item.name}</Text>
+                    {/* Adjust the content based on your API response */}
+                    <Text>Popularity: {item.popularity}</Text>
+                    <Text>Release Date: {item.release_date || item.first_air_date}</Text>
+                    <View style={styles.seeDetailsButtonContainer}>
+                      <Button
+                        title="More Details"
+                        onPress={() => navigateToDetails(item)}
+                        color="#fff"
+                      />
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        )}
       </View>
     </View>
   </View>
@@ -165,8 +190,9 @@ const styles = StyleSheet.create({
     height: 40,
     marginVertical: 10,
     marginRight:10,
+    padding:10,
     backgroundColor: '#fff',
-    justifyContent: 'center',
+    justifyContent:"space-between",
     alignItems: 'center',
     borderColor: '#dee2e6',
     borderWidth: 1,
@@ -177,12 +203,12 @@ const styles = StyleSheet.create({
   dropdownButtonText: {
     fontSize: 16,
     marginRight: 8,
-    color:"#777"
+    color:"#777",
   },
   arrowIcon:{
     fontSize: 16,
     fontWeight: "regular", 
-    color:"#B9C2CB"
+    color:"#B9C2CB",
   },
   searchButton: {
     backgroundColor: '#00b4d8',
@@ -216,6 +242,30 @@ const styles = StyleSheet.create({
     color: '#49525A',
     textAlign:"center",
     marginTop:100,
+  },
+  movieContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  movieImage: {
+    width: 100,
+    height: 150,
+    marginRight: 10,
+  },
+  movieDetails: {
+    flex: 1,
+  },
+  movieTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  seeDetailsButtonContainer: {
+    marginTop: 10,
+    backgroundColor: '#00b4d8',
+    padding: 8,
+    borderRadius: 8,
   },
 });
 

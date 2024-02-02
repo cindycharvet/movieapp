@@ -67,18 +67,20 @@ const TVList = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => setDropdownVisible(true)}
-        style={styles.dropdownButton}
-      >
-        <Text style={styles.dropdownButtonText}>
-          {dropdownOptions.find(option => option.value === selectedCategory)?.label}
-        </Text>
-        <Icon
-          name="chevron-down"
-          style={styles.arrowIcon}
-        />
-      </TouchableOpacity>
+      <View style={styles.containerDropdown}>
+        <TouchableOpacity
+          onPress={() => setDropdownVisible(true)}
+          style={styles.dropdownButton}
+        >
+          <Text style={styles.dropdownButtonText}>
+            {dropdownOptions.find(option => option.value === selectedCategory)?.label}
+          </Text>
+          <Icon
+            name="chevron-down"
+            style={styles.arrowIcon}
+          />
+        </TouchableOpacity>
+      </View>
 
       <Dropdown
         options={dropdownOptions}
@@ -124,11 +126,16 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#fff',
   },
+  containerDropdown:{
+    alignItems:"center",
+  },
   dropdownButton: {
+    width:250,
     height: 40,
     marginVertical: 10,
-    backgroundColor: '#F4F5F6',
-    justifyContent: 'center',
+    padding:10,
+    backgroundColor: '#fff',
+    justifyContent:"space-between",
     alignItems: 'center',
     borderColor: '#dee2e6',
     borderWidth: 1,
@@ -141,7 +148,7 @@ const styles = StyleSheet.create({
     color:"#777"
   },
   arrowIcon:{
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "regular", 
     color:"#B9C2CB"
   },
