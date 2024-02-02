@@ -2,12 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Button, TouchableOpacity, FlatList, Modal, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import MovieDetailsScreen from './movieDetails';
+
+const Stack = createStackNavigator();
 
 const MoviesScreen = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="MovieList"
+        component={MovieList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="MovieDetails" component={MovieDetailsScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const MovieList = ({ navigation }) => {
   const [movies, setMovies] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('now_playing');
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const navigation = useNavigation();
 
   useEffect(() => {
     fetchMovies(selectedCategory);
@@ -83,11 +99,11 @@ const MoviesScreen = () => {
                 <Text>Popularity: {item.popularity}</Text>
                 <Text>Release Date: {item.release_date}</Text>
                 <View style={styles.seeDetailsButtonContainer}>
-                    <Button
-                        title="More Details"
-                        onPress={() => navigateToDetails(item)}
-                        color="#fff"
-                    />
+                  <Button
+                    title="More Details"
+                    onPress={() => navigateToDetails(item)}
+                    color="#fff"
+                  />
                 </View>
               </View>
             </View>
