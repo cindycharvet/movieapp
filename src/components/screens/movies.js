@@ -82,12 +82,13 @@ const MoviesScreen = () => {
                 <Text style={styles.movieTitle}>{item.title}</Text>
                 <Text>Popularity: {item.popularity}</Text>
                 <Text>Release Date: {item.release_date}</Text>
-                <Button
-                  title="See Details"
-                  onPress={() => navigateToDetails(item)}
-                  color="#fff"  
-                  style={styles.seeDetailsButton}
-                />
+                <View style={styles.seeDetailsButtonContainer}>
+                    <Button
+                        title="More Details"
+                        onPress={() => navigateToDetails(item)}
+                        color="#fff"
+                    />
+                </View>
               </View>
             </View>
           </TouchableOpacity>
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   },
   dropdownButtonText: {
     fontSize: 16,
-    marginRight: 8, // Add space between text and arrow
+    marginRight: 8,
   },
   modalContainer: {
     flex: 1,
@@ -129,23 +130,19 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   dropdownItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    padding: 15,
   },
   movieContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
-    backgroundColor: '#f0f0f0',
     padding: 10,
     borderRadius: 8,
   },
   movieImage: {
-    width: 50,
-    height: 75,
+    width: 100,
+    height: 150,
     marginRight: 10,
-    borderRadius: 4,
   },
   movieDetails: {
     flex: 1,
@@ -155,10 +152,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  seeDetailsButton: {
-    marginTop: 10, 
-    backgroundColor: '#007BFF',
-    padding: 10,
+  seeDetailsButtonContainer: {
+    marginTop: 10,
+    backgroundColor: '#00b4d8',
+    padding: 8,
     borderRadius: 8,
   },
 });

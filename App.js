@@ -4,9 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import MoviesScreen from './src/components/moviesScreen';
-import SearchScreen from './src/components/searchScreen';
-import TVShowsScreen from './src/components/tvShowsScreen';
+import MoviesScreen from './src/components/screens/movies';
+import SearchScreen from './src/components/screens/search';
+import TVShowsScreen from './src/components/screens/tvShows';
 
 const Tab = createMaterialTopTabNavigator();
 
