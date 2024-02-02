@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Dropdown = ({ options, selectedOption, onSelect, isVisible, onClose }) => {
   const renderDropdownItem = (item) => (
@@ -9,9 +10,18 @@ const Dropdown = ({ options, selectedOption, onSelect, isVisible, onClose }) => 
         onSelect(item.value);
         onClose();
       }}
-      style={styles.dropdownItem}
+      style={[
+        styles.dropdownItem,
+        selectedOption === item.value && styles.selectedItem,
+      ]}
     >
-      <Text>{item.label}</Text>
+      <Text style={[styles.optionText, selectedOption === item.value && styles.selectedText]}>{item.label}</Text>
+      {selectedOption === item.value && (
+        <Icon
+          name="check"
+          style={styles.icon}
+        />
+      )}
     </TouchableOpacity>
   );
 
@@ -23,6 +33,8 @@ const Dropdown = ({ options, selectedOption, onSelect, isVisible, onClose }) => 
       onRequestClose={onClose}
     >
       <View style={styles.modalContainer}>
+        <View style={styles.overlay} />
+
         <View style={styles.modalContent}>
           {options.map(renderDropdownItem)}
         </View>
@@ -36,6 +48,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
   modalContent: {
     backgroundColor: '#fff',
     borderTopLeftRadius: 15,
@@ -44,6 +60,25 @@ const styles = StyleSheet.create({
   },
   dropdownItem: {
     padding: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  optionText:{
+    fontSize:16,
+  },
+  selectedItem: {
+    backgroundColor: '#209E81',
+    borderRadius:5,
+  },
+  selectedText: {
+    color: '#fff',
+  },
+  icon: {
+    marginRight: 10,
+    color: '#fff', 
+    fontSize: 20,
+    fontWeight: "normal", 
+    marginLeft:10,
   },
 });
 

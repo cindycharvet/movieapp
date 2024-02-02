@@ -9,6 +9,7 @@ const SearchScreen = ({ navigation }) => {
   const [searchType, setSearchType] = useState('movie');
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchTypeMessage, setShowSearchTypeMessage] = useState(false);
+  const [isDropdownVisible, setDropdownVisible] = useState(false); // Corrected variable name
 
   const handleSearch = async () => {
     if (query.trim() === '') {
@@ -34,6 +35,24 @@ const SearchScreen = ({ navigation }) => {
     navigation.navigate('MovieDetails', { movie: item });
   };
 
+  const renderDropdownItem = (item) => (
+    <TouchableOpacity
+      key={item.value}
+      onPress={() => {
+        setSearchType(item.value); // Corrected variable name
+        setDropdownVisible(false);
+      }}
+      style={styles.dropdownItem}
+    >
+      <Text>{item.label}</Text>
+    </TouchableOpacity>
+  );
+
+  const dropdownOptions = [
+    { label: 'Movie', value: 'movie' },
+    { label: 'TV Show', value: 'tv' },
+  ];
+
   return (
     <View style={styles.container}>
 
@@ -56,24 +75,22 @@ const SearchScreen = ({ navigation }) => {
           
           <View style={styles.searchTypeContainer}>
             <Dropdown
-              options={[
-                { label: 'Movie', value: 'movie' },
-                { label: 'TV Show', value: 'tv' },
-              ]}
+              options={dropdownOptions}
               selectedOption={searchType}
               onSelect={setSearchType}
-              isVisible={showSearchTypeMessage}
-              onClose={() => setShowSearchTypeMessage(false)}
+              isVisible={isDropdownVisible}
+              onClose={() => setDropdownVisible(false)}
             />
 
-            <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+            <TouchableOpacity style={styles.searchButton} onPress={() => setDropdownVisible(!isDropdownVisible)}>
               <Text style={styles.btnSearch}>Search</Text>
               <Icon name="search" size={20} color="#fff" />
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.formLabel}>Please select a search type</Text>
-
+          {showSearchTypeMessage && (
+            <Text style={styles.errorMessage}>Please select a search type.</Text>
+          )}
         </View>
 
       {/* Search Results */}

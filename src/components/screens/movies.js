@@ -38,8 +38,8 @@ const MovieList = ({ navigation }) => {
     }
   };
 
-  const navigateToDetails = (movie) => {
-    navigation.navigate('MovieDetails', { movie });
+  const navigateToDetails = (item) => {
+    navigation.navigate('MovieDetails', { item });
   };
 
   const renderDropdownItem = (item) => (
