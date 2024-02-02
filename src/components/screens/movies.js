@@ -23,7 +23,7 @@ const MoviesScreen = () => {
 
 const MovieList = ({ navigation }) => {
   const [movies, setMovies] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('now_playing');
+  const [selectedCategory, setSelectedCategory] = useState('popular');
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   useEffect(() => {
@@ -166,13 +166,12 @@ const styles = StyleSheet.create({
   movieContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
     padding: 10,
     borderRadius: 8,
   },
   movieImage: {
     width: 100,
-    height: 150,
+    height: 130,
     marginRight: 10,
   },
   movieDetails: {
@@ -186,8 +185,8 @@ const styles = StyleSheet.create({
   seeDetailsButtonContainer: {
     marginTop: 10,
     backgroundColor: '#00b4d8',
-    padding: 8,
-    borderRadius: 8,
+    padding: 6,
+    borderRadius: 6,
   },
 });
 

@@ -168,13 +168,12 @@ const styles = StyleSheet.create({
   tvContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
     padding: 10,
     borderRadius: 8,
   },
   tvImage: {
     width: 100,
-    height: 150,
+    height: 130,
     marginRight: 10,
   },
   movieDetails: {
@@ -188,8 +187,8 @@ const styles = StyleSheet.create({
   seeDetailsButtonContainer: {
     marginTop: 10,
     backgroundColor: '#00b4d8',
-    padding: 8,
-    borderRadius: 8,
+    padding: 6,
+    borderRadius: 6,
   },
 });
 

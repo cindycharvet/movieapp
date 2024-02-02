@@ -246,11 +246,11 @@ const styles = StyleSheet.create({
   movieContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical:10,
   },
   movieImage: {
     width: 100,
-    height: 150,
+    height: 130,
     marginRight: 10,
   },
   movieDetails: {
@@ -264,8 +264,8 @@ const styles = StyleSheet.create({
   seeDetailsButtonContainer: {
     marginTop: 10,
     backgroundColor: '#00b4d8',
-    padding: 8,
-    borderRadius: 8,
+    padding: 6,
+    borderRadius: 6,
   },
 });
 

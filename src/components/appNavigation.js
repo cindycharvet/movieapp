@@ -20,7 +20,7 @@ const TabNavigator = () => (
     }}
   >
     <Tab.Screen name="Movies" component={MoviesScreen} />
-    <Tab.Screen name="Search" component={SearchScreen} />
+    <Tab.Screen name="Search Results" component={SearchScreen} />
     <Tab.Screen name="TV Shows" component={TVShowsScreen} />
   </Tab.Navigator>
 );
