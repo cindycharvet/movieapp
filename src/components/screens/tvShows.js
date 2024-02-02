@@ -43,8 +43,6 @@ const TVList = ({ navigation }) => {
     navigation.navigate('MovieDetails', { item });
   };
 
-
-
   const renderDropdownItem = (item) => (
     <TouchableOpacity
       key={item.value}

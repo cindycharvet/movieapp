@@ -4,23 +4,17 @@ import { View, Text, Image, Button, StyleSheet, ScrollView } from 'react-native'
 const MovieDetailsScreen = ({ route, navigation }) => {
     const { item } = route.params;
 
-    React.useEffect(() => {
-        console.log('Details:', item);
-    }, [item]);
-
     React.useLayoutEffect(() => {
-        if (item) {
-            navigation.setOptions({
-                headerLeft: () => (
-                    <Button
-                        onPress={() => navigation.goBack()}
-                        title="Back to List"
-                        color="#007BFF"
-                    />
-                ),
-                headerTitle: item.title || item.name || 'Details',
-            });
-        }
+        navigation.setOptions({
+            headerLeft: () => (
+                <Button
+                    onPress={() => navigation.goBack()}
+                    title="Back to List"
+                    color="#007BFF"
+                />
+            ),
+            headerTitle: item.title || item.name || 'Details',
+        });
     }, [navigation, item]);
 
     return (
@@ -48,7 +42,6 @@ const MovieDetailsScreen = ({ route, navigation }) => {
         </ScrollView>
     );
 };
-
 
 const styles = StyleSheet.create({
   scrollView: {

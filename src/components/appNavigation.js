@@ -36,12 +36,14 @@ const AppNavigation = () => {
       <Stack.Screen
         name="MovieDetails"
         component={MovieDetailsScreen}
-        options={({ route }) => ({
-          tabBarVisible: route.state ? route.state.index <= 0 : true,
-        })}
+        options={{
+          headerShown: false,
+          tabBarVisible: false, 
+        }}
       />
     </Stack.Navigator>
   );
 };
+
 
 export default AppNavigation;
