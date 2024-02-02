@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Button, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import Dropdown from '../dropdown';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -73,6 +74,10 @@ const TVList = ({ navigation }) => {
         <Text style={styles.dropdownButtonText}>
           {dropdownOptions.find(option => option.value === selectedCategory)?.label}
         </Text>
+        <Icon
+          name="chevron-down"
+          style={styles.arrowIcon}
+        />
       </TouchableOpacity>
 
       <Dropdown
@@ -122,7 +127,7 @@ const styles = StyleSheet.create({
   dropdownButton: {
     height: 40,
     marginVertical: 10,
-    backgroundColor: '#fafafa',
+    backgroundColor: '#F4F5F6',
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#dee2e6',
@@ -133,6 +138,12 @@ const styles = StyleSheet.create({
   dropdownButtonText: {
     fontSize: 16,
     marginRight: 8,
+    color:"#777"
+  },
+  arrowIcon:{
+    fontSize: 20,
+    fontWeight: "regular", 
+    color:"#B9C2CB"
   },
   modalContainer: {
     flex: 1,
